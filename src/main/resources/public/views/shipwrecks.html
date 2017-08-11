@@ -1,0 +1,21 @@
+<div class="container pad-top">
+  <a ui-sref="newFlixRatings" class="btn-primary btn-lg nodecoration">Add a Flix</a>
+  <table class="table shipwrecktable">
+      <tr>
+          <td><b>All Ratings</b></td>
+          <td><b>Description</b></td>
+          <td><b>Average Rating</b></td>
+          <td><b>Genre</b></td>
+      </tr>
+      <tr ng-repeat="flixrating in flixRatings">
+          <td>{{flixrating.name}}</td>
+          <td>{{flixrating.description}}</td>
+          <td>{{flixrating.avgRating}}</td>
+          <td>{{flixrating.genre}}</td>
+          <td>
+              <a class="btn btn-primary" ui-sref="viewFlixRating({id:flixrating.id})">View</a>
+              <a class="btn btn-danger"  ng-click="deleteFlixRating(flixrating)">Delete</a>
+          </td>
+      </tr>
+  </table>
+</div>
