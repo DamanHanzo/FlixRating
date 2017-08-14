@@ -61,7 +61,11 @@
 	        url:'/flixRatings/:id/edit',
 	        templateUrl: viewsPrefix + 'shipwreck-edit.html',
 	        controller:'FlixRatingEditController'
-	    })
+	    }).state('plusFlixRating', {
+	    	url: '/flixRatings/:id/plusRating',
+			templateUrl: viewsPrefix + 'shipwreck-view.html',
+			controller: 'FlixRatingAddRatingController'
+		})
 	})
 	.directive('updateTitle', ['$rootScope', '$timeout',
 		function($rootScope, $timeout) {

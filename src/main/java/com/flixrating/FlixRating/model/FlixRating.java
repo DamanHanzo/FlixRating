@@ -1,14 +1,19 @@
 package com.flixrating.FlixRating.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
+//import java.io.Serializable;
 
 @Entity
+@Table(name="flix_rating")
 public class FlixRating {
+
+//	private static final long serialVersionUID = -7049957706738879274L;
+	private Set<Comments> comments;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@SequenceGenerator(name="flixratings_id_seq", allocationSize = 1)
+//	@Column(name = "ID")
 	Long id;
 	String name;
 	String description;
@@ -63,5 +68,14 @@ public class FlixRating {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	@OneToMany(mappedBy = "FlixRating", cascade = CascadeType.ALL)
+	public Set<Comments> getComments(){
+		return comments;
+	}
+
+	public void setComments(Set<Comments> comments) {
+		this.comments = comments;
 	}
 }

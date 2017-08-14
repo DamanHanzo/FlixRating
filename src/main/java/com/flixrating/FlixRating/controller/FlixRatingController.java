@@ -36,16 +36,25 @@ public class FlixRatingController {
 
     @RequestMapping(value = "flixRatings/{id}", method = RequestMethod.PUT)
     public FlixRating update(@PathVariable Long id, @RequestBody FlixRating flixRating) {
-        FlixRating existingShipwreck = flixRatingRepository.findOne(id);
-        BeanUtils.copyProperties(flixRating, existingShipwreck);
-        return flixRatingRepository.saveAndFlush(existingShipwreck);
+        FlixRating existingFlix = flixRatingRepository.findOne(id);
+        BeanUtils.copyProperties(flixRating, existingFlix);
+        return flixRatingRepository.saveAndFlush(existingFlix);
     }
 
     @RequestMapping(value = "flixRatings/{id}", method = RequestMethod.DELETE)
     public FlixRating delete(@PathVariable Long id) {
-        FlixRating existingShipwreck = flixRatingRepository.findOne(id);
-        flixRatingRepository.delete(existingShipwreck);
-        return existingShipwreck;
+        FlixRating existingFlix = flixRatingRepository.findOne(id);
+        flixRatingRepository.delete(existingFlix);
+        return existingFlix;
     }
 
+    @RequestMapping(value = "flixRatings/{id}", method = RequestMethod.POST)
+    public FlixRating plusRating(@PathVariable Long id, @RequestBody FlixRating flixRating){
+        FlixRating existingFlix = flixRatingRepository.findOne(id);
+        Double rating = existingFlix.getAvgRating();
+        rating+=1;
+        flixRating.setAvgRating(rating);
+        BeanUtils.copyProperties(flixRating, existingFlix);
+        return flixRatingRepository.saveAndFlush(existingFlix);
+    }
 }

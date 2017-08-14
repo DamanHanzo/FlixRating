@@ -24,11 +24,19 @@ angular.module('app.controllers', []).controller('FlixRatingListController', fun
     $scope.flixRating.$update(function() {
       $state.go('flixRating'); // on success go back to the list i.e. shipwrecks state.
     });
-  };
+  }
 
   $scope.loadFlixRating = function() { //Issues a GET request to /api/v1/shipwrecks/:id to get a shipwreck to update
     $scope.flixRating = FlixRating.get({ id: $stateParams.id });
   };
 
   $scope.loadFlixRating(); // Load a shipwreck which can be edited on UI
+}).controller('FlixRatingAddRatingController', function($scope, $state, $stateParams, FlixRating) {
+    console.log("inside the controller method");
+    $scope.flixRating.$plusRating({id: $stateParams.id, flixRating: FlixRating});
+    // $scope.plusFlixRating = function(){
+    //   console.log("inside the 1st func!");
+    //   $scope.flixRating.$plusRating({id: $stateParams.id, flixRating: FlixRating});
+    // }
+    // $scope.plusFlixRating();
 });
