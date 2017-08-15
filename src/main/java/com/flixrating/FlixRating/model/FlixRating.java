@@ -9,6 +9,8 @@ import java.util.Set;
 public class FlixRating {
 
 //	private static final long serialVersionUID = -7049957706738879274L;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Comments.class)
+	@JoinTable(name = "flix_comment", joinColumns = {@JoinColumn(name = "flix_id")}, inverseJoinColumns = {@JoinColumn(name="comment_id")} )
 	private Set<Comments> comments;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +72,7 @@ public class FlixRating {
 		this.genre = genre;
 	}
 
-	@OneToMany(mappedBy = "FlixRating", cascade = CascadeType.ALL)
+//	@OneToMany(mappedBy = "FlixRating", cascade = CascadeType.ALL)
 	public Set<Comments> getComments(){
 		return comments;
 	}

@@ -1,6 +1,8 @@
 package com.flixrating.FlixRating.controller;
 
+import com.flixrating.FlixRating.model.Comments;
 import com.flixrating.FlixRating.model.FlixRating;
+import com.flixrating.FlixRating.repository.CommentsRepository;
 import com.flixrating.FlixRating.repository.FlixRatingRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/v1/")
@@ -18,6 +22,9 @@ public class FlixRatingController {
 
     @Autowired
     private FlixRatingRepository flixRatingRepository;
+
+    @Autowired
+    private CommentsRepository commentsRepository;
 
     @RequestMapping(value = "flixRatings", method = RequestMethod.GET)
     public List<FlixRating> list() {
@@ -56,5 +63,21 @@ public class FlixRatingController {
         flixRating.setAvgRating(rating);
         BeanUtils.copyProperties(flixRating, existingFlix);
         return flixRatingRepository.saveAndFlush(existingFlix);
+    }
+
+    @RequestMapping(value="flixRatings/comment", method = RequestMethod.POST)
+    public Comments createComment(){
+        Comments comment = new Comments();
+//        Set comments = new HashSet<Comments>(){{
+//            add(comment);
+//        }};
+//        FlixRating existingFlix = flixRatingRepository.findOne(id);
+        comment.setUsername("UserNAME");
+        comment.setMessage("HELLO WORLD");
+        comment.setId(1L);
+//        existingFlix.setComments(comments);
+//        flixRatingRepository.saveAndFlush(existingFlix);
+        return commentsRepository.saveAndFlush(comment);
+
     }
 }
